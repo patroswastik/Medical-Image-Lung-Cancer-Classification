@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-UK">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+    <title>Medical Image Classification for Lung Cancer</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/728d1d3dec.js" crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    </head>
+    <body >
+            <div class="svgs">
+                    <img src="/static/imgs/bg_svg.svg">
+                </div>
+                <div class="page" id="part1">
+                    <div class="info">
+                        <div class="heading">
+                            <div class="title text-primary">Lung Cancer Prediction (using Lung CT scan)</div>
+                            <div class="title-support">using Machine Learning</div>
+                        </div>
+                        <div class="dev">
+                            <div class="text-primary">
+                                <i class="far fa-file-code"></i>&nbsp;Developed by:
+                            </div>
+                            <ul>
+                                <li>Sachin Sahil</li>    
+                                <li> Swastik Patro</li>
+                                <li>Deep Patel</li>
+                            </ul>
+                        </div>
+                        <div class="btn-grp">
+                            <a href="#part3" class="try">
+                                Try it!
+                            </a>
+                        </div>
+                        
+                    </div>
+                    <div class="imgContainer">
+                        <!-- <img src="imgs/farm1.jpg" alt=""> -->
+                        <img src="/static/imgs/computer-healthcare-and-medical-svgrepo-com.svg" alt="computer-healthcare-and-medical-svgrepo-com">
+                    </div>
+                    <div class="scrollIndicator"></div>
+                </div>
+                <div class="page" id="part2">
+                    <div class="card myCard">
+                        <div class="myCard-img" style="align-self:center;">
+                            <img src="/static/imgs/input.svg" alt="">
+                        </div>
+                        <div class="myCard-title text-blue">Enter details</div>
+                        <div class="myCard-body ">Provide information such as image or DCM file of CT scan along with the name of Patient .</div>
+                    </div>
+                    <div class="card myCard">
+                        <div class="myCard-img" style="align-self: center;">
+                            <img src="https://img.icons8.com/metro/52/000000/lungs.png"/>
+                        </div>
+                        <div class="myCard-title text-green">Preprocess Image</div>
+                        <div class="myCard-body ">The input image is accepted of .dcm or .jpg format and then mask the image.</div>
+                    </div>
+                    <div class="card myCard" style="align-self: center;">
+                        <div class="myCard-img">
+                            <img src="/static/imgs/model.svg" alt="">
+                        </div>
+                        <div class="myCard-title text-orange">Prediction</div>
+                        <div class="myCard-body ">A SVM model trained based on LIDC-IDRI dataset that contains around 1036 patients CT scan images with annotations .</div>
+                    </div>
+                    <div class="scrollIndicator"></div>
+                </div>
+                <div class="container p-5 page" id="part3">
+                    <div class="imgContainer">
+                        <img src="/static/imgs/ct-scan.svg" alt="CT scan">
+                    </div>
+                    <div class="card shadow-lg col-6 p-0 mx-auto" >
+                        <div class="card-header text-primary text-center">
+                            <h3><u>Lung CT Scan Predictor for Cancer</u></h3>
+                        </div>
+                        <form method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                            <div class="card-body">
+                            <div class="form-group">
+                                
+                                
+                                <label for="user_name">Name:</label>
+                                <input type="text" minlength="2" maxlength="50" class="form-control" name="user_name" id="user_name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="image_file">Select Image File</label>
+                                <input  type="file" class="form-control" name="image_file" accept=".dcm" placeholder="Choose Image" required>
+                            </div>
+                            
+                            <div class="row">
+                                <button  class="btn btn-primary mx-auto" href="" id="submit">Predict</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                
+                {% if status == "done" %}
+                
+                <div class="scrollIndicator" style="margin-left: 45%;"></div>
+                
+                </div>
+                
+                
+                <div class = "container  p5 page" id="part4" style="padding-top: 50px;">    
+                    
+                    
+                <div class="card myCard" style="align-self: center; padding: 12px;">
+                    <div class="myCard-img" style="align-self: center;">
+                        <img src="/static/imgs/cancer_report_icon.png" alt="report icon" width="50px" height="50px">
+                    </div>
+                    <div class="myCard-title text-orange" style="align-self: center; font-size: 30px;">Result</div>
+                    {% if result == "Cancer" %}    
+                        <div class="myCard-body" style="text-align: center; padding-top: 12px;"> {{ name }} your CT Scan of Lungs show that you have<b> Nodule Present </b> , which implies that <b>you suffering from lung Cancer</b> , we suggest you to visit Lung Cancer specialist Doctor in Locality and start your treatment as early as possible , Get Well Soon !!!. </div>
+                    {% elif result == "Not Cancer" %}
+                        <div class="myCard-body" style="text-align: center; padding-top: 12px;"> {{ name }} your CT scan of Lungs show that you have <b>Nodule Present</b> but <b> you are NOT suffering with Lung Cancer </b> .</div>
+                    {% else %}
+                        <div class="myCard-body" style="text-align: center; padding-top: 12px;"> {{ name }} your CT scan of Lungs show that <b>you have Non Nodule </b>, which implies that <b>you are NOT suffering from Lung Cancer</b> </div> 
+                    {% endif %}           
+                </div>
+                    
+                {% endif %}
+                </div> 
+            
+
+    </body>
+    
+            
+            
+</html>
